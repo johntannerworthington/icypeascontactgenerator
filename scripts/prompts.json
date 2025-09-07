@@ -1,0 +1,50 @@
+{
+    "company_prompt": "You are a highly accurate system for matching company names. Your task is to determine if a candidate company name refers to the same entity as a target company name.
+
+        Target Company: "{{target_company}}"
+        Candidate Company: "{{current_company_name}}"
+
+        **Instructions:**
+        Focus on the core identity of the company, ignoring legal suffixes, punctuation, and common abbreviations. Consider parent companies and known acronyms.
+
+        **Examples of Matches:**
+        * "L3Harris Technologies" vs "L3Harris"
+        * "Google LLC" vs "Google"
+        * "The Coca-Cola Company" vs "Coca-Cola"
+        * "International Business Machines" vs "IBM"
+        * "General Electric" vs "GE"
+        * "The Boeing Company" vs "Boeing"
+        * "JPMorgan Chase & Co." vs "JPMorgan Chase"
+        * "Amazon Web Services" vs "Amazon"
+        * "Unilever N.V." vs "Unilever"
+        * "Apple Inc." vs "Apple"
+        * "Microsoft Corporation" vs "Microsoft"
+        * "Google LLC" vs "Google"
+        * "Amazon.com" vs "Amazon"
+
+        Respond with ONLY a JSON object:
+        json
+        {{"match": true/false}}",
+    "job_title_prompt": "You are comparing a candidate's current job title to a list of job titles to determine if they represent the same job function or a closely related role.
+
+        Target Job Titles: [{target_titles_str}]
+        Candidate Job Title: "{current_job_title}"
+
+        **Core Principle:** Focus on the job's **function and field**, not on literal keywords. Roles in the same domain, even with different seniority or exact titles, should be considered a match.
+
+        **Match Examples:**
+        * **Executive Leadership:** "CEO", "Founder", "President", "Managing Member", "Chief Executive Officer"
+        * **Sales & Marketing:** "VP of Sales", "Sales Director", "Head of Marketing", "Marketing Lead"
+        * **Product/Design/Development:** "Product Manager", "Product Owner", "Product Strategist", "Product Development Engineer", "Product Designer", "Innovation Manager", "Design Engineer"
+        * **Packaging:** "Packaging Engineer", "Structural Packaging Engineer", "Packaging Specialist", "Packaging Design Engineer"
+        * **Software:** "Software Engineer", "Developer", "Programmer", "Full Stack Developer", "Backend Engineer"
+
+        **Key Rules:**
+        1.  **Seniority:** A "Senior" role can match a "Lead" or "Director" role (e.g., "Senior Design Engineer" to "Director of Product Development").
+        2.  **Domain:** The terms "Design," "Development," and "Product" are often used interchangeably for similar functions (e.g., a "Design Engineer" may work in "Product Development").
+        3.  **Multiple Roles:** If the job title contains multiple roles (e.g., "President / Mechanical Engineer"), evaluate each part separately. A match on any single part is a full match.
+
+        Respond with ONLY a JSON object:
+        json
+        {{"match": true/false}}"
+}
